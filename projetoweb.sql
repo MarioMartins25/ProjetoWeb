@@ -18,6 +18,22 @@ USE `jogo_da_forca`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `dicas`
+--
+
+DROP TABLE IF EXISTS `dicas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dicas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  `ativo` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nome_UNIQUE` (`nome`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `dicas`
 --
 
@@ -26,6 +42,24 @@ LOCK TABLES `dicas` WRITE;
 INSERT INTO `dicas` VALUES (1,'Calmo',1),(2,'Sereno',1),(3,'Acomodado',1),(4,'Imbecil',1),(5,'Ignorante',1),(6,'Troca',1),(7,'Câmbio',1),(8,'Criança',1),(9,'Bebé',1),(10,'Adolescente',1),(11,'Bem vestido',1),(12,'Mentir',1),(13,'Enganar',1),(14,'Desagradável',1),(15,'Bagunça',1),(16,'Agressivo',1),(17,'Mal educado',1),(18,'Desaforado',1),(19,'Sujeira',1),(20,'Mancha',1),(21,'Apelido',1),(22,'Nome adotado por amigos',1);
 /*!40000 ALTER TABLE `dicas` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `dicas_jogos`
+--
+
+DROP TABLE IF EXISTS `dicas_jogos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dicas_jogos` (
+  `dicas_id` int(11) NOT NULL,
+  `jogo_id` int(11) NOT NULL,
+  PRIMARY KEY (`dicas_id`,`jogo_id`),
+  KEY `fk_dicas_has_jogo_jogo1_idx` (`jogo_id`),
+  KEY `fk_dicas_has_jogo_dicas1_idx` (`dicas_id`),
+  CONSTRAINT `fk_dicas_has_jogo_dicas1` FOREIGN KEY (`dicas_id`) REFERENCES `dicas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_dicas_has_jogo_jogo1` FOREIGN KEY (`jogo_id`) REFERENCES `jogos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `dicas_jogos`
@@ -38,6 +72,22 @@ INSERT INTO `dicas_jogos` VALUES (4,1),(5,1),(17,2),(18,2),(1,3),(3,3),(20,4);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `jogadas`
+--
+
+DROP TABLE IF EXISTS `jogadas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `jogadas` (
+  `jogo_id` int(11) NOT NULL,
+  `letra` varchar(1) NOT NULL,
+  PRIMARY KEY (`jogo_id`,`letra`),
+  KEY `fk_jogadas_jogo1_idx` (`jogo_id`),
+  CONSTRAINT `fk_jogadas_jogo1` FOREIGN KEY (`jogo_id`) REFERENCES `jogos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `jogadas`
 --
 
@@ -46,6 +96,26 @@ LOCK TABLES `jogadas` WRITE;
 INSERT INTO `jogadas` VALUES (1,'A'),(1,'D'),(1,'E'),(1,'L'),(1,'M'),(1,'O'),(1,'P'),(1,'R'),(1,'T'),(2,'A'),(2,'B'),(2,'C'),(2,'E'),(2,'I'),(2,'L'),(2,'N'),(2,'O'),(2,'S'),(2,'T'),(3,'A'),(3,'C'),(3,'E'),(3,'H'),(3,'L'),(3,'M'),(3,'N'),(3,'O'),(3,'P'),(3,'R'),(3,'T'),(4,'A'),(4,'D'),(4,'E'),(4,'I'),(4,'N'),(4,'O'),(4,'S'),(5,'A'),(5,'C'),(5,'E'),(5,'H'),(5,'I'),(5,'N'),(5,'O'),(5,'P'),(5,'R'),(5,'T'),(6,'A'),(6,'B'),(6,'D'),(6,'Q'),(6,'R'),(6,'S'),(6,'T'),(6,'W'),(6,'X');
 /*!40000 ALTER TABLE `jogadas` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `jogos`
+--
+
+DROP TABLE IF EXISTS `jogos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `jogos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `palavras_id` int(11) NOT NULL,
+  `terminado` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`,`palavras_id`,`user_id`),
+  KEY `fk_jogo_utilizadores1_idx` (`user_id`),
+  KEY `fk_jogo_palavras1_idx` (`palavras_id`),
+  CONSTRAINT `fk_jogo_palavras1` FOREIGN KEY (`palavras_id`) REFERENCES `palavras` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_jogo_utilizadores1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `jogos`
@@ -58,6 +128,23 @@ INSERT INTO `jogos` VALUES (1,4,2,1),(2,4,7,1),(3,4,1,1),(4,4,9,1),(5,4,1,1),(6,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `palavras`
+--
+
+DROP TABLE IF EXISTS `palavras`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `palavras` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(75) NOT NULL,
+  `categoria` varchar(45) NOT NULL,
+  `ativo` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nome_UNIQUE` (`nome`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `palavras`
 --
 
@@ -68,6 +155,24 @@ INSERT INTO `palavras` VALUES (1,'Pachorrento','Feitio de pessoa',1),(2,'Pacovio
 UNLOCK TABLES;
 
 --
+-- Table structure for table `palavras_dicas`
+--
+
+DROP TABLE IF EXISTS `palavras_dicas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `palavras_dicas` (
+  `palavras_id` int(11) NOT NULL,
+  `dicas_id` int(11) NOT NULL,
+  PRIMARY KEY (`palavras_id`,`dicas_id`),
+  KEY `fk_palavras_has_dicas_dicas1_idx` (`dicas_id`),
+  KEY `fk_palavras_has_dicas_palavras_idx` (`palavras_id`),
+  CONSTRAINT `fk_palavras_has_dicas_dicas1` FOREIGN KEY (`dicas_id`) REFERENCES `dicas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_palavras_has_dicas_palavras` FOREIGN KEY (`palavras_id`) REFERENCES `palavras` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `palavras_dicas`
 --
 
@@ -76,6 +181,28 @@ LOCK TABLES `palavras_dicas` WRITE;
 INSERT INTO `palavras_dicas` VALUES (1,1),(1,2),(1,3),(2,4),(2,5),(3,6),(3,7),(4,8),(4,9),(4,10),(5,11),(6,12),(6,13),(7,14),(8,15),(7,17),(7,18),(9,19),(9,20),(10,21),(10,22);
 /*!40000 ALTER TABLE `palavras_dicas` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(75) NOT NULL,
+  `permissoes` int(1) NOT NULL DEFAULT '0',
+  `data_nascimento` datetime NOT NULL,
+  `email` varchar(75) NOT NULL,
+  `primeiro_nome` varchar(45) NOT NULL,
+  `ultimo_nome` varchar(45) NOT NULL,
+  `ativo` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `users`
@@ -96,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-12 19:40:17
+-- Dump completed on 2016-06-12 19:51:47
