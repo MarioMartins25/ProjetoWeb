@@ -1,0 +1,122 @@
+/* Variabes */
+/* Mixin's */
+
+.card-box{
+  background-color: #083c8a!important;
+}
+.wrapper{
+  color:white;
+}
+canvas {
+  color: #fff;
+  border: #fff dashed 2px;
+  padding: 15px;
+}
+
+#alfabeto {
+  margin: 15px auto;
+  padding: 0;
+  max-width: 600px;
+}
+#alfabeto:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#alfabeto li {
+  float: left;
+  margin: 0 10px 10px 0;
+  list-style: none;
+  width: 35px;
+  height: 35px;
+  padding: 7px 0px 0px 0px;
+  background: #fff;
+  color: #00257d;
+  cursor: pointer;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border: solid 1px #fff;
+}
+#alfabeto li:hover {
+  background: #e25a00;
+  border: solid 1px #fff;
+  color: #fff;
+}
+
+#my-word {
+  margin: 0;
+  display: block;
+  padding: 0;
+  display: block;
+  letter-spacing: 10px;
+    font-size: 1.6em;
+}
+
+.bloqueado{
+  cursor:not-allowed!important;
+  background-color: rgb(123,123,123)!important;
+}
+
+.activo {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+  -moz-transition: all 1s ease-in;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  cursor: default;
+}
+.activo:hover {
+  -moz-transition: all 1s ease-in;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+  -moz-transition: all 1s ease-in;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+}
+
+#mylives {
+  font-size: 1.6em;
+  text-align: center;
+  display: block;
+}
+
+.button {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -khtml-border-radius: 5px;
+  background: #e25a00;
+  color: #fff;
+  border: solid 1px #fff;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  padding: 18px 10px;
+  width: 180px;
+  margin: 10px;
+  outline: none;
+}
+.button:hover {
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background: rgba(226,90,0, 0.7);
+  border: solid 1px #fff;
+  color: white;
+}
+
+@media (max-width: 767px) {
+  #alfabeto {
+    padding: 0 0 0 15px;
+  }
+}
+@media (max-width: 480px) {
+  #alfabeto {
+    padding: 0 0 0 25px;
+  }
+}
