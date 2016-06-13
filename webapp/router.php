@@ -49,7 +49,8 @@ $APP_Router->get('jogo@eliminarAberto', 'JogoController@eliminarAberto');
 $APP_Router->post('jogo@jogada', 'JogadaController@jogada');
 $APP_Router->get('jogo@dica', 'JogadaController@pedirDica');
 
-
+$APP_Router->post('perfil@atualizaPerfil', 'DashboardController@atualizarPerfil');
+$APP_Router->post('perfil@imgperfil', 'DashboardController@atualizarImg');
 
 $APP_Router->post('dicas@palavra', 'DashboardController@verDicas');
 //EM TESTE

@@ -2,7 +2,7 @@
                 <div class="sidebar-inner slimscrollleft">
                 <div class="user-details">
                         <div class="pull-left">
-                            <img src="../public/images/logo.png" alt="" class="thumb-md img-circle">
+                            <img src="../public/images/users/<?= $user_ativo['foto']; ?>" alt="" class="thumb-md img-circle">
                         </div>
                         <div class="user-info">
                             <div class="dropdown">

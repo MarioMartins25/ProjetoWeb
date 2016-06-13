@@ -18,6 +18,11 @@ class DashboardController extends BaseController
       $this->user_ativo['nome'] = $user->primeiro_nome. " " .$user->ultimo_nome;
       $this->user_ativo['permissoes'] = $user->permissoes;
       $this->user_ativo['nr_users'] = count(User::find_all_by_ativo(1));
+
+      $foto = Fotos_perfi::find_by_user_id($_SESSION['UserID'], array('order' => 'data desc'));
+
+      $this->user_ativo['foto'] = $foto->url;
+
     }
 
     public function index(){
@@ -51,7 +56,16 @@ class DashboardController extends BaseController
     public function perfil(){
       $this->verificarSessao();
 
-      $this->APP_Views->getView('dashboard.perfil', ['user' => $this->user_ativo]);
+      $user = User::find_by_id($_SESSION['UserID']);
+
+      $campos = array();
+      $campos['primeiro_nome'] = $user->primeiro_nome;
+      $campos['ultimo_nome'] = $user->ultimo_nome;
+      $campos['email'] = $user->email;
+      $campos['password'] = $user->password;
+      $campos['data_nascimento'] = $user->data_nascimento;
+
+      $this->APP_Views->getView('dashboard.perfil', ['user' => $this->user_ativo, 'campos' => $campos]);
     }
 
     public function adicionarPalavra(){
@@ -223,6 +237,61 @@ class DashboardController extends BaseController
       $_SESSION['PalavraEliminada'] = 1;
 
       header("Location: router.php?route=dashboard&action=listaPalavras");
+    }
+
+    public function atualizarImg(){
+      $this->verificarSessao();
+
+      $foto = new Fotos_Perfi();
+
+      $dir =  '../public/images/users/';
+      $path = $_FILES['image']['name'];
+      $ext = pathinfo($path, PATHINFO_EXTENSION);
+      $nome = sha1($path . rand(11111,99999)) .".". $ext;
+      $final = $dir . $nome;
+
+      $foto->user_id = $_SESSION['UserID'];
+      $foto->url = $nome;
+
+      $foto->save();
+
+      move_uploaded_file($_FILES['image']['tmp_name'], $final);
+      header("Location: router.php?route=dashboard&action=perfil");
+    }
+
+    public function atualizarPerfil(){
+      $this->verificarSessao();
+
+      $primeiro_nome = ltrim(rtrim($_POST['primeiro_nome']));
+      $ultimo_nome = ltrim(rtrim($_POST['ultimo_nome']));
+      $email = ltrim(rtrim($_POST['email']));
+      $password = ltrim(rtrim($_POST['password']));
+      $repeat_password = ltrim(rtrim($_POST['repeat_password']));
+      $data_nascimento = ltrim(rtrim($_POST['data_nascimento']));
+
+      if($password == "" || $password == ""){
+        $password = "EOF";
+        $repeat_password = "EOF";
+      }
+
+      if($primeiro_nome != "" && $ultimo_nome != "" && $email != "" && $data_nascimento != ""){
+          if($password == $repeat_password){
+
+            $user = User::find_by_id($_SESSION['UserID']);
+
+            $user->primeiro_nome = $primeiro_nome;
+            $user->ultimo_nome = $ultimo_nome;
+            if($password != "EOF"){
+              $user->password = md5($password);
+            }
+            $user->email = $email;
+
+            $user->data_nascimento = date("Y-m-d", strtotime($data_nascimento));
+
+            $user->save();
+          }
+        }
+        header("Location: " . $_SERVER['HTTP_REFERER']);
     }
 
     public function editarEmail(){

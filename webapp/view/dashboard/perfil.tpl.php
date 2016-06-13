@@ -4,7 +4,7 @@ global $APP_ViewDisp;
 global $APP_WebAsset;
 
 $user_ativo = $APP_ViewDisp->dataComposer->getDataForView('user');
-
+$campos = $APP_ViewDisp->dataComposer->getDataForView('campos');
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,7 +22,7 @@ $user_ativo = $APP_ViewDisp->dataComposer->getDataForView('user');
 		    <link rel="stylesheet" href="../public/plugins/morris/morris.css">
 
         <!--@yield('css')-->
-
+        <link href="../public/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
         <link href="../public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="../public/css/core.css" rel="stylesheet" type="text/css" />
         <link href="../public/css/components.css" rel="stylesheet" type="text/css" />
@@ -30,7 +30,6 @@ $user_ativo = $APP_ViewDisp->dataComposer->getDataForView('user');
         <link href="../public/css/pages.css" rel="stylesheet" type="text/css" />
         <link href="../public/css/responsive.css" rel="stylesheet" type="text/css" />
 
-        <link href="../public/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
         <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -81,28 +80,28 @@ $user_ativo = $APP_ViewDisp->dataComposer->getDataForView('user');
                 			</p>
                 			<div class="row">
                 				<div class="col-md-12">
-                					<form class="form-horizontal" role="form">
+                					<form class="form-horizontal" role="form" method="post" action="router.php?route=perfil&action=atualizaPerfil">
                               <div class="form-group">
                                   <label class="col-md-2 control-label">Primeiro nome</label>
                                   <div class="col-md-4">
-                                      <input type="text" class="form-control" placeholder="Primeiro nome">
+                                      <input type="text" class="form-control" name="primeiro_nome" value="<?= $campos['primeiro_nome'] ?>" placeholder="Primeiro nome">
                                   </div>
 
                                   <label class="col-md-2 control-label">Último nome</label>
                                   <div class="col-md-4">
-                                      <input type="text" class="form-control" placeholder="Último nome">
+                                      <input type="text" class="form-control" name="ultimo_nome" value="<?= $campos['ultimo_nome'] ?>" placeholder="Último nome">
                                   </div>
 
                               </div>
                               <div class="form-group">
                                   <label class="col-md-2 control-label" for="example-email">Email</label>
                                   <div class="col-md-4">
-                                      <input type="email" id="example-email" name="example-email" class="form-control" placeholder="Email">
+                                      <input type="email" id="example-email" name="email" value="<?= $campos['email'] ?>" class="form-control" placeholder="Email">
                                   </div>
                                   <label class="col-md-2 control-label">Data de nascimento</label>
                                   <div class="col-sm-4">
                                       <div class="input-group">
-                                          <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose">
+                                          <input type="text" class="form-control" name="data_nascimento" placeholder="dd/mm/yyyy" id="datepicker-autoclose">
                                           <span class="input-group-addon bg-custom b-0 text-white"><i class="icon-calender"></i></span>
                                       </div><!-- input-group -->
                                   </div>
@@ -110,11 +109,19 @@ $user_ativo = $APP_ViewDisp->dataComposer->getDataForView('user');
                               <div class="form-group">
                                   <label class="col-md-2 control-label">Nova password</label>
                                   <div class="col-md-4">
-                                      <input type="password" class="form-control" placeholder="Nova password">
+                                      <input type="password" class="form-control" name="password" placeholder="Nova password">
                                   </div>
                                   <label class="col-md-2 control-label">Repetir nova password</label>
                                   <div class="col-md-4">
-                                      <input type="password" class="form-control" placeholder="Repetir nova password">
+                                      <input type="password" class="form-control" name="repeat_password" placeholder="Repetir nova password">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button type="reset" class="btn btn-danger waves-effect waves-light" value="submit">Limpar</button>
+                                        <button type="submit" class="btn btn-facebook waves-effect waves-light" value="submit">Guardar</button>
+                                    </div>
                                   </div>
                               </div>
                             </form>
@@ -130,9 +137,9 @@ $user_ativo = $APP_ViewDisp->dataComposer->getDataForView('user');
                             </p>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <img class="img-thumbnail"style="max-height:300px;" src="../public/images/logo.png">
-                                    <form action="router.php?route=dashboard&action=imgperfil" method="POST" name="img_update" enctype="multipart/form-data">
-                                        <input type="file" data-buttonText="Escolher imagem" name="img" class="filestyle col-sm-4" data-buttonbefore="true" required id="filestyle-8" accept="image/*">
+                                    <img class="img-thumbnail"style="max-height:300px;" src="../public/images/users/<?= $user_ativo['foto']; ?>">
+                                    <form action="router.php?route=perfil&action=imgperfil" method="POST" name="img_update" enctype="multipart/form-data">
+                                        <input type="file" data-buttonText="Escolher imagem" name="image" class="filestyle col-sm-4" data-buttonbefore="true" required id="filestyle-8" accept="image/*">
                                         <button type="submit" class="btn btn-primary waves-effect waves-light m-t-10">Atualizar imagem</button>
 
                                     </form>
@@ -193,13 +200,12 @@ $user_ativo = $APP_ViewDisp->dataComposer->getDataForView('user');
 
             jQuery(document).ready(function($) {
 
-                $('.selectpicker').selectpicker();
                 $(":file").filestyle({input: false});
 
 
                 jQuery('#datepicker-autoclose').datepicker({
-                    autoclose: true,
-                    todayHighlight: true
+                	autoclose: true,
+                	todayHighlight: true
                 });
                 $('.counter').counterUp({
                     delay: 100,

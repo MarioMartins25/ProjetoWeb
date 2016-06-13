@@ -126,7 +126,7 @@
                                     <a href="#" id="btn-fullscreen" class="waves-effect waves-light"><i class="icon-size-fullscreen"></i></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="../public/images/logo.png" alt="user-img" class="img-circle"> </a>
+                                    <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="../public/images/users/<?= $user_ativo['foto']; ?>" alt="user-img" class="img-circle"> </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="router.php?route=dashboard&action=perfil"><i class="ti-settings m-r-5"></i> Perfil</a></li>
                                         <li><a href="<?php echo $APP_Router->buildURL('auth@logout')?>"><i class="ti-power-off m-r-5"></i> Sair</a></li>

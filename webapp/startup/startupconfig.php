@@ -9,7 +9,7 @@
 /**
  * APP configs
  */
-$APP_BaseURL = 'http://localhost/projetov3/';
+$APP_BaseURL = 'http://localhost/projetov3/ProjetoWeb/';
 
 $APP_MapPath = __DIR__;
 $APP_ViewFolder = $APP_MapPath . "\\..\\view\\";

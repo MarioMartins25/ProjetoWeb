@@ -213,6 +213,7 @@ class Router
                     die();
                 }
             } else {
+              
                 echo 'ROUTER ERROR: URL Route mismatch. No [' . $fullRouteName . '] rule for ' . $_SERVER['REQUEST_METHOD'] . ' Request method' ;
                 die();
             }
