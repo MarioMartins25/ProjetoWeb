@@ -72,6 +72,31 @@ INSERT INTO `dicas_jogos` VALUES (4,1),(5,1),(17,2),(18,2),(1,3),(3,3),(20,4);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `fotos_perfis`
+--
+
+DROP TABLE IF EXISTS `fotos_perfis`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `fotos_perfis` (
+  `user_id` int(11) NOT NULL,
+  `url` varchar(75) NOT NULL,
+  `data` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`,`url`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fotos_perfis`
+--
+
+LOCK TABLES `fotos_perfis` WRITE;
+/*!40000 ALTER TABLE `fotos_perfis` DISABLE KEYS */;
+INSERT INTO `fotos_perfis` VALUES (3,'7451a0216260de7c396cfeebd51620b8727211e6.jpg','2016-06-13 00:46:32');
+/*!40000 ALTER TABLE `fotos_perfis` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `jogadas`
 --
 
@@ -141,7 +166,7 @@ CREATE TABLE `palavras` (
   `ativo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_UNIQUE` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,7 +175,7 @@ CREATE TABLE `palavras` (
 
 LOCK TABLES `palavras` WRITE;
 /*!40000 ALTER TABLE `palavras` DISABLE KEYS */;
-INSERT INTO `palavras` VALUES (1,'Pachorrento','Feitio de pessoa',1),(2,'Pacovio','Estilo de uma pessoa',1),(3,'Permuta','Viver em sociedade',1),(4,'Petiz','Criança',1),(5,'Janota','Forma de vestir de uma pessoa',1),(6,'Engodar','Forma de agir de uma pessoa',1),(7,'Insolente','Forma de agir de uma pessoa',1),(8,'Balburdia','Arrumação das coisas',1),(9,'Nodoa','Limpeza (ou falta dela)',1),(10,'Alcunha','Pessoas',1);
+INSERT INTO `palavras` VALUES (1,'Pachorrento','Feitio de pessoa',1),(2,'Pacovio','Estilo de uma pessoa',1),(3,'Permuta','Viver em sociedade',1),(4,'Petiz','Criança',1),(5,'Janota','Forma de vestir de uma pessoa',1),(6,'Engodar','Forma de agir de uma pessoa',1),(7,'Insolente','Forma de agir de uma pessoa',1),(8,'Balburdia','Arrumação das coisas',1),(9,'Nodoa','Limpeza (ou falta dela)',1),(10,'Alcunha','Pessoas',1),(11,'Traça','Praça',1);
 /*!40000 ALTER TABLE `palavras` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,7 +235,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'rafael','202cb962ac59075b964b07152d234b70',1,'1995-12-07 00:00:00','rafael@gmail.com','Rafael','Ferreira',1),(2,'mario','202cb962ac59075b964b07152d234b70',1,'0000-00-00 00:00:00','mario@gmail.com','Mario','Martins',1),(3,'saul','202cb962ac59075b964b07152d234b70',1,'0000-00-00 00:00:00','saul@gmail.com','Saul','Ezequiel',1),(4,'jogar','202cb962ac59075b964b07152d234b70',0,'1993-12-02 00:00:00','jogar@gmail.com','Jogador','Profissional',1);
+INSERT INTO `users` VALUES (1,'rafael','202cb962ac59075b964b07152d234b70',1,'1995-12-07 00:00:00','rafael@gmail.com','Rafael','Ferreira',1),(2,'mario','202cb962ac59075b964b07152d234b70',1,'0000-00-00 00:00:00','mario@gmail.com','Mario','Martins',1),(3,'saul','202cb962ac59075b964b07152d234b70',1,'2016-06-22 00:00:00','saul@gmail.com','Saul','Ezequiel',1),(4,'jogar','202cb962ac59075b964b07152d234b70',0,'1993-12-02 00:00:00','jogar@gmail.com','Jogador','Profissional',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -223,4 +248,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-12 19:51:47
+-- Dump completed on 2016-06-13  1:11:20
