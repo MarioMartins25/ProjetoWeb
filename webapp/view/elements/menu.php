@@ -48,7 +48,7 @@
                                 <a href="#" class="waves-effect"><i class="icon-user-follow"></i><span class="label label-success pull-right"><?= $user_ativo['nr_users']; ?></span><span> Utilizadores </span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="router.php?route=dashboard&action=novoUser"> Adicionar Utilizadores</a></li>
-                                    <li><a href="router.php?route=dashboard&action=listaClientes"> Lista de Clientes</a></li>
+                                    <li><a href="router.php?route=dashboard&action=listaUsers"> Lista de Utilizadores</a></li>
                                 </ul>
                             </li>
                             <?php }else{ ?>

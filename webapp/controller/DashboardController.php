@@ -21,7 +21,7 @@ class DashboardController extends BaseController
 
       $foto = Fotos_perfi::find_by_user_id($_SESSION['UserID'], array('order' => 'data desc'));
 
-      $this->user_ativo['foto'] = $foto->url;
+      $this->user_ativo['foto'] = ($foto == NULL)? "user.png" : "".$foto->url;
 
     }
 
@@ -29,7 +29,87 @@ class DashboardController extends BaseController
       //TOP 10
       $this->verificarSessao();
 
-      $this->APP_Views->getView('dashboard.index', ['user' => $this->user_ativo]);
+      $jogos = Jogo::find_all_by_terminado(1);
+
+      $tabela = array();
+      $j = 0;
+      $nr = 0;
+      foreach($jogos as $jogo){
+        $jogadas = Jogada::find_all_by_jogo_id($jogo->id);
+        $palavra = Palavra::find_by_id($jogo->palavras_id);
+        $palavra = $palavra->nome;
+        $vidas = 0; //a.k.a letras jogadas
+        $aux = 0;
+        $pontuacao = 0;
+
+        foreach($jogadas as $key => $letra_jogadas){
+          for($i = 0; $i < strlen($palavra); $i++){
+            if($letra_jogadas->letra == strtoupper($palavra[$i])){
+              $aux++;
+            }
+          }
+          if($aux == 0){
+            $vidas++; //nao houve acerto da jogada
+          }
+          $aux = 0;
+        }
+
+        switch($vidas){
+          case 0:
+            $pontuacao = 6;
+          break;
+          case 1:
+            $pontuacao = 5;
+          break;
+          case 2:
+            $pontuacao = 4;
+          break;
+          case 3:
+            $pontuacao = 3;
+          break;
+          case 4:
+            $pontuacao = 2;
+          break;
+          case 5:
+            $pontuacao = 1;
+          break;
+          case 6:
+            $pontuacao = 0;
+          break;
+        }
+
+        $igual = false;
+
+        if($j == 0){
+          $tabela[0]['user_id'] = $jogo->user_id;
+          $tabela[0]['pontuacao'] = $pontuacao;
+          $nome_user = User::find_by_id($jogo->user_id);
+          $tabela[0]['nome'] = $nome_user->primeiro_nome . " " . $nome_user->ultimo_nome;
+
+        }else{
+          $nr = count($tabela);
+          for($k = 0; $k < $nr; $k++){
+            if(!$igual){
+              if($tabela[$k]['user_id'] == $jogo->user_id){
+                $tabela[$k]['pontuacao'] += $pontuacao;
+                $igual = true;
+              }
+            }
+          }
+        }
+
+        if(!$igual){
+          $tabela[$nr]['user_id'] = $jogo->user_id;
+          $nome_user = User::find_by_id($jogo->user_id);
+          $tabela[$nr]['nome'] = $nome_user->primeiro_nome . " " . $nome_user->ultimo_nome;
+          $tabela[$nr]['pontuacao'] = $pontuacao;
+        }
+        $j++;
+      }
+
+      asort($tabela);
+
+      $this->APP_Views->getView('dashboard.index', ['user' => $this->user_ativo, 'tabela' => $tabela]);
     }
 
     public function adicionarUser(){
@@ -295,7 +375,46 @@ class DashboardController extends BaseController
     }
 
     public function editarEmail(){
+      $this->verificarSessao();
 
-      echo "ABC";
+      $user = User::find_by_id($_POST['pk']);
+      if (filter_var($_POST['value'], FILTER_VALIDATE_EMAIL)) {
+          $user->email = $_POST['value'];
+      }
+      $user->save();
     }
+
+    public function editarData(){
+      $this->verificarSessao();
+
+      $user = User::find_by_id($_POST['pk']);
+      $user->data_nascimento = $_POST['value'];
+      $user->save();
+    }
+
+    public function editarNomeDica(){
+      $this->verificarSessao();
+
+      $dica = Dica::find_by_id($_POST['pk']);
+      $dica->nome = $_POST['value'];
+      $dica->save();
+    }
+
+    public function editarPalavra(){
+      $this->verificarSessao();
+
+      $palavra = Palavra::find_by_id($_POST['pk']);
+      $palavra->nome = $_POST['value'];
+      $palavra->save();
+    }
+    public function editarCategoria(){
+      $this->verificarSessao();
+
+      $palavra = Palavra::find_by_id($_POST['pk']);
+      $palavra->categoria = $_POST['value'];
+      $palavra->save();
+    }
+
+
+
 }

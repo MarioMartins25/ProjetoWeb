@@ -106,8 +106,8 @@ $users = $APP_ViewDisp->dataComposer->getDataForView('users');
                     <tr>
                         <td><?= $cliente->primeiro_nome . " " . $cliente->ultimo_nome; ?></td>
                         <td><?= $cliente->username; ?></td>
-                        <td><a href="#" class="email" data-type="text" url="router.php?route=dashboard&action=editarEmail" name="email" data-title="Inserir o email"><?= $cliente->email; ?></a></form></td>
-                        <td><a href="#" class="data_nascimento" data-type="combodate" data-value="<?= date_format($cliente->data_nascimento,"Y-m-d"); ?>" data-format="YYYY-MM-DD" data-viewformat="DD/MM/YYYY" data-template="D / MMM / YYYY"  data-title="Data de nascimento"></a></td>
+                        <td><a href="#" class="email" data-pk="<?= $cliente->id; ?>" data-type="text" url="router.php?route=dashboard&action=editarEmail" name="email" data-title="Inserir o email"><?= $cliente->email; ?></a></form></td>
+                        <td><a href="#" class="data_nascimento" data-pk="<?= $cliente->id; ?>" data-type="combodate" data-value="<?= date_format($cliente->data_nascimento,"Y-m-d"); ?>" data-format="YYYY-MM-DD" data-viewformat="DD/MM/YYYY" data-template="D / MMM / YYYY"  data-title="Data de nascimento"></a></td>
                         <td><?= ($cliente->permissoes == 1) ? 'Administrador' : 'Jogador' ; ?></td>
                         <td>
 
@@ -200,17 +200,20 @@ var resizefunc = [];
 
 <script>
 
+jQuery(document).ready(function() {
+
   $('.nome').editable();
-  $('.data_nascimento').editable();
-  $('.email').editable({
-    ajaxOptions: {
-      type: 'post',
-      dataType: 'json'
-    },
-    success: function(response, newValue) {
-      if(response.status == 'error')
-        return response.msg; //msg will be shown in editable form
+  $('.data_nascimento').editable(
+    {
+     type: 'text',
+     url: 'router.php?route=dashboard&action=editarData',
+     name: 'data',
     }
+  );
+  $('.email').editable({
+   type: 'text',
+   url: 'router.php?route=dashboard&action=editarEmail',
+   name: 'email',
   });
   $('.classe').editable();
 
@@ -218,7 +221,7 @@ var resizefunc = [];
   autoclose: true,
   todayHighlight: true
   });
-
+});
   </script>
 
   <script type="text/javascript">
@@ -231,6 +234,7 @@ var resizefunc = [];
   $(".knob").knob();
 
   });
+
   </script>
 
   </body>

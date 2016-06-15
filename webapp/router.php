@@ -23,7 +23,7 @@ $APP_Router->post('auth@registar', 'AuthController@validar');
 $APP_Router->get('dashboard@inicio', 'DashboardController@index');
 $APP_Router->get('dashboard@novoUser', 'DashboardController@adicionarUser');
 $APP_Router->post('dashboard@novoUser', 'AuthController@validar');
-$APP_Router->get('dashboard@listaClientes', 'DashboardController@listaClientes');
+$APP_Router->get('dashboard@listaUsers', 'DashboardController@listaClientes');
 $APP_Router->post('dashboard@eliminarCliente', 'DashboardController@eliminarCliente');
 
 
@@ -53,9 +53,15 @@ $APP_Router->post('perfil@atualizaPerfil', 'DashboardController@atualizarPerfil'
 $APP_Router->post('perfil@imgperfil', 'DashboardController@atualizarImg');
 
 $APP_Router->post('dicas@palavra', 'DashboardController@verDicas');
+
 //EM TESTE
 
 $APP_Router->post('dashboard@editarEmail', 'DashboardController@editarEmail');
+$APP_Router->post('dashboard@editarData', 'DashboardController@editarData');
+$APP_Router->post('dashboard@editarDica', 'DashboardController@editarNomeDica');
+$APP_Router->post('dashboard@editarPalavra', 'DashboardController@editarPalavra');
+$APP_Router->post('dashboard@editarCategoria', 'DashboardController@editarCategoria');
+
 
 /************** End of URL Routing Rules ************************************/
 

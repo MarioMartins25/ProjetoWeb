@@ -31,6 +31,7 @@ $palavras = $APP_ViewDisp->dataComposer->getDataForView('palavras');
         <link href="../public/css/pages.css" rel="stylesheet" type="text/css" />
         <link href="../public/css/responsive.css" rel="stylesheet" type="text/css" />
         <link href="../public/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+        <link type="text/css" href="../public/plugins/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
 
         <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -99,10 +100,10 @@ $palavras = $APP_ViewDisp->dataComposer->getDataForView('palavras');
                 foreach ($palavras as $palavra) {
                   ?>
                     <tr>
-                        <td><?= $palavra->nome; ?></td>
-                        <td><?= $palavra->categoria; ?></td>
+                        <td><a href="#" class="palavra" data-pk="<?= $palavra->id; ?>" data-placement="right" data-type="text" url="router.php?route=dashboard&action=editarPalavra" name="palavra" data-title="Inserir a palavra"><?= $palavra->nome; ?></a></form></td>
+                        <td><a href="#" class="categoria" data-pk="<?= $palavra->id; ?>" data-type="text" url="router.php?route=dashboard&action=editarCategoria" name="categoria" data-title="Inserir a categoria"><?= $palavra->categoria; ?></a></form></td>
+
                         <td>
-                          <button class="btn btn-warning"><i class="fa fa-edit"></i></button>
                           <form action="router.php?route=dashboard&action=eliminarPalavra" method="post"><button class="btn btn-danger" name="palavra_id" value="<?= $palavra->id; ?>"><i class="fa fa-trash-o"></i></button></form>
                         </td>
                     </tr>
@@ -165,6 +166,8 @@ var resizefunc = [];
 <script src="../public/js/jquery.app.js"></script>
 <script src="../public/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="../public/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="../public/plugins/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+<script type="text/javascript" src="../public/pages/jquery.xeditable.js"></script>
 
 <?php
 
@@ -198,6 +201,22 @@ var resizefunc = [];
 
   <script type="text/javascript">
   jQuery(document).ready(function($) {
+
+    $('.palavra').editable(
+      {
+       type: 'text',
+       url: 'router.php?route=dashboard&action=editarPalavra',
+       name: 'data',
+      }
+    );
+    $('.categoria').editable(
+      {
+       type: 'text',
+       url: 'router.php?route=dashboard&action=editarCategoria',
+       name: 'data',
+      }
+    );
+
   $('.counter').counterUp({
       delay: 100,
       time: 1200

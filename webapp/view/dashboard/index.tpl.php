@@ -4,6 +4,7 @@ global $APP_ViewDisp;
 global $APP_WebAsset;
 
 $user_ativo = $APP_ViewDisp->dataComposer->getDataForView('user');
+$tabela = $APP_ViewDisp->dataComposer->getDataForView('tabela');
 
 ?>
 <!DOCTYPE html>
@@ -69,14 +70,49 @@ $user_ativo = $APP_ViewDisp->dataComposer->getDataForView('user');
               <!-- Start content -->
               <div class="content">
                 <div class="container">
-                  <!--@yield('content')-->
+
+                  <div class="row card-box">
+    <div class="col-sm-12">
+        <div class="col-md-12">
+            <h4 class="header-title"><b>TOP 10</b></h4>
+            <p class="text-muted m-b-30 font-13">
+                Lista dos melhores jogadores.
+            </p>
+        </div>
+        <div class="col-md-12">
+                  <table class="table table-striped m-0">
+													<thead>
+														<tr>
+															<th>Pos.</th>
+															<th>Jogador</th>
+															<th>Pontuação</th>
+														</tr>
+													</thead>
+													<tbody>
+                            <?php
+                            $i = 1;
+                            foreach($tabela as $linha){
+                              if($i < 11){
+                              ?>
+                              <tr>
+                              <td><?= $i; ?></td>
+                              <td><?= $linha['nome']; ?></td>
+                              <td><?= $linha['pontuacao']; ?></td>
+                            </tr>
+                              <?php
+                              $i++;
+                                }
+                            }
+                             ?>
+													</tbody>
+												</table>
                 </div>
               </div>
             </div>
-
+          </div></div>
 
             <!-- content -->
-
+            <audio id="audio" src="../public/audio/campeoes.mp3" preload="auto"></audio>
             <footer class="footer text-right">
                 © 2016 Programação para a web - servidor.
             </footer>
@@ -119,6 +155,7 @@ $user_ativo = $APP_ViewDisp->dataComposer->getDataForView('user');
 
         <script type="text/javascript">
             jQuery(document).ready(function($) {
+              document.getElementById('audio').play();
                 $('.counter').counterUp({
                     delay: 100,
                     time: 1200
