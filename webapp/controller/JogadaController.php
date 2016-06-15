@@ -17,6 +17,10 @@ class JogadaController extends BaseController
       $this->user_ativo['nome'] = $user->primeiro_nome. " " .$user->ultimo_nome;
       $this->user_ativo['permissoes'] = $user->permissoes;
       $this->user_ativo['nr_users'] = count(User::find_all_by_ativo(1));
+
+      $foto = Fotos_perfi::find_by_user_id($_SESSION['UserID'], array('order' => 'data desc'));
+
+      $this->user_ativo['foto'] = ($foto == NULL)? "user.png" : "".$foto->url;
     }
 
     public function jogada(){
