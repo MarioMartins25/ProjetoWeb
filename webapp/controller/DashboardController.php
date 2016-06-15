@@ -107,7 +107,15 @@ class DashboardController extends BaseController
         $j++;
       }
 
+      for($i = 0; $i < count($tabela); $i++){
+        $tabela[$i]['pontuacao'] = $tabela[$i]['pontuacao'] / Jogo::count(array('conditions' => 'user_id = '.$tabela[$i]['user_id']));
+      }
+
       asort($tabela);
+
+      $tabela = array_slice($tabela, 0, 9);
+
+      
 
       $this->APP_Views->getView('dashboard.index', ['user' => $this->user_ativo, 'tabela' => $tabela]);
     }

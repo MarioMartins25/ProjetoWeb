@@ -30,7 +30,7 @@ CREATE TABLE `dicas` (
   `ativo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_UNIQUE` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +67,6 @@ CREATE TABLE `dicas_jogos` (
 
 LOCK TABLES `dicas_jogos` WRITE;
 /*!40000 ALTER TABLE `dicas_jogos` DISABLE KEYS */;
-INSERT INTO `dicas_jogos` VALUES (4,1),(5,1),(17,2),(18,2),(1,3),(3,3),(20,4);
 /*!40000 ALTER TABLE `dicas_jogos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +91,6 @@ CREATE TABLE `fotos_perfis` (
 
 LOCK TABLES `fotos_perfis` WRITE;
 /*!40000 ALTER TABLE `fotos_perfis` DISABLE KEYS */;
-INSERT INTO `fotos_perfis` VALUES (3,'7451a0216260de7c396cfeebd51620b8727211e6.jpg','2016-06-13 00:46:32');
 /*!40000 ALTER TABLE `fotos_perfis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +116,6 @@ CREATE TABLE `jogadas` (
 
 LOCK TABLES `jogadas` WRITE;
 /*!40000 ALTER TABLE `jogadas` DISABLE KEYS */;
-INSERT INTO `jogadas` VALUES (1,'A'),(1,'D'),(1,'E'),(1,'L'),(1,'M'),(1,'O'),(1,'P'),(1,'R'),(1,'T'),(2,'A'),(2,'B'),(2,'C'),(2,'E'),(2,'I'),(2,'L'),(2,'N'),(2,'O'),(2,'S'),(2,'T'),(3,'A'),(3,'C'),(3,'E'),(3,'H'),(3,'L'),(3,'M'),(3,'N'),(3,'O'),(3,'P'),(3,'R'),(3,'T'),(4,'A'),(4,'D'),(4,'E'),(4,'I'),(4,'N'),(4,'O'),(4,'S'),(5,'A'),(5,'C'),(5,'E'),(5,'H'),(5,'I'),(5,'N'),(5,'O'),(5,'P'),(5,'R'),(5,'T'),(6,'A'),(6,'B'),(6,'D'),(6,'Q'),(6,'R'),(6,'S'),(6,'T'),(6,'W'),(6,'X');
 /*!40000 ALTER TABLE `jogadas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +136,7 @@ CREATE TABLE `jogos` (
   KEY `fk_jogo_palavras1_idx` (`palavras_id`),
   CONSTRAINT `fk_jogo_palavras1` FOREIGN KEY (`palavras_id`) REFERENCES `palavras` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_jogo_utilizadores1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,7 +145,6 @@ CREATE TABLE `jogos` (
 
 LOCK TABLES `jogos` WRITE;
 /*!40000 ALTER TABLE `jogos` DISABLE KEYS */;
-INSERT INTO `jogos` VALUES (1,4,2,1),(2,4,7,1),(3,4,1,1),(4,4,9,1),(5,4,1,1),(6,4,3,1);
 /*!40000 ALTER TABLE `jogos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +171,7 @@ CREATE TABLE `palavras` (
 
 LOCK TABLES `palavras` WRITE;
 /*!40000 ALTER TABLE `palavras` DISABLE KEYS */;
-INSERT INTO `palavras` VALUES (1,'Pachorrento','Feitio de pessoa',1),(2,'Pacovio','Estilo de uma pessoa',1),(3,'Permuta','Viver em sociedade',1),(4,'Petiz','Criança',1),(5,'Janota','Forma de vestir de uma pessoa',1),(6,'Engodar','Forma de agir de uma pessoa',1),(7,'Insolente','Forma de agir de uma pessoa',1),(8,'Balburdia','Arrumação das coisas',1),(9,'Nodoa','Limpeza (ou falta dela)',1),(10,'Alcunha','Pessoas',1),(11,'Traça','Praça',1);
+INSERT INTO `palavras` VALUES (1,'Pachorrento','Feitio de pessoa',1),(2,'Pacovio','Estilo de uma pessoa',1),(3,'Permuta','Viver em sociedade',1),(4,'Petiz','Criança',1),(5,'Janota','Forma de vestir de uma pessoa',1),(6,'Engodar','Forma de agir de uma pessoa',1),(7,'Insolente','Forma de agir de uma pessoa',1),(8,'Balburdia','Arrumação das coisas',1),(9,'Nodoa','Limpeza (ou falta dela)',1),(10,'Alcunha','Pessoas',1),(11,'Traca','Praca',1);
 /*!40000 ALTER TABLE `palavras` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -226,7 +222,7 @@ CREATE TABLE `users` (
   `ativo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -248,4 +244,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-13  1:11:20
+-- Dump completed on 2016-06-15 13:54:42

@@ -24,7 +24,7 @@
                             <li class="has_sub">
                                 <a href="#" class="waves-effect active"><i class="ti-home"></i> <span> Ínicio </span> </a>
                                 <ul class="list-unstyled">
-                                    <li class="active"><a href="#">Inicio</a></li>
+                                    <li class="active"><a href="router.php?route=dashboard&action=inicio">Inicio</a></li>
                                     <li><a href="router.php?route=dashboard&action=perfil">Perfil</a></li>
                                 </ul>
                             </li>
